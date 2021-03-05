@@ -14,7 +14,7 @@ export const Signup = () => {
     event.preventDefault();
     console.log("sending");
 
-    fetch("http://localhost:5000/users", {
+    fetch("http://localhost:5000/games", {
       method: "POST",
       headers: {
           "Content-Type": "application/json"

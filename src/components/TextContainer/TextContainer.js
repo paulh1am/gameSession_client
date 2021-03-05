@@ -9,7 +9,7 @@ export const TextContainer = ({ users }) => (
     
     {users ? (
       <div>
-        <h1>Users chatting</h1>
+        <h1>Users online</h1>
         <div className='activeContainer'>
           <h2>
             {users.map(({ name }) => (

@@ -1,13 +1,28 @@
-import React, { useState } from 'react';
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import { Link, history } from "react-router-dom";
 
 import './Join.css';
 
 export const Join = () => {
   const [name, setName] = useState('');
   const [room, setRoom] = useState('');
+  const [gameList, setGameList] = useState([]);
+  
+  // make list state and fetch it from db (route) and display in a (textcontainer) list
+
+  useEffect(() => {
+    
+    fetch("http://localhost:5000/games")
+    .then(response => response.json())
+    .then(data => {
+      setGameList(data);
+    });
+  }, []);
+
+  console.log(gameList);
 
   return (
+    
     <div className="joinOuterContainer">
       <div className="joinInnerContainer">
         <h1 className="heading">Join</h1>
@@ -20,7 +35,24 @@ export const Join = () => {
         <Link onClick={e => (!name || !room) ? e.preventDefault() : null} to={`/chat?name=${name}&room=${room}`}>
           <button className={'button mt-20'} type="submit">Sign In</button>
         </Link>
-      </div>
+
+
+      </div> 
+      { gameList != [] && (
+        <div className="list">
+          <h3 >games</h3>
+          <ul> 
+           {gameList.map(game=>
+                       
+                         <li key={game.name} >
+                           {game.name}
+                         </li>
+                     )}
+          </ul>
+        </div>
+        )}
+        <br/>     
+
     </div>
   );
 }
